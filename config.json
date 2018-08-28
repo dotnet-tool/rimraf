@@ -1,0 +1,147 @@
+{
+  "skipTargetOptions": [
+    { "tests": { "_condition": " '$(SkipTests)' == 'true' " } },
+    { "obfuscation": { "_condition": " '$(SkipObfuscation)' == 'true' " } },
+    { "packaging": null }
+  ],
+  "productName": "rimraf",
+  "repoRoot": "$ConfigThisFileDirectory$",
+  "sourceDir": "$RepoRoot$\\src",
+  "baseOutputDir": "$RepoRoot$\\_build",
+  "binDir": "$BaseOutputDir$\\bin",
+  "objDir": "$BinDir$\\obj",
+  "testsOutDir": "$BinDir$\\tests",
+  "packagesOutDir": "$BinDir$\\packages",
+  "packagesDir": "$RepoRoot$\\packages",
+  "buildToolsDir": "$RepoRoot$\\_buildtools",
+  "versionOptions": {
+    "baseBuildDate": "2018-08-01",
+    "majorVersion": "1",
+    "minorVersion": "0",
+    "patchVersion": "0",
+    "preReleaseLabel": "preview",
+    "preReleaseLabelSuffix": "2.0",
+    "preReleaseLabelSuffixPadding": "3",
+    "packageVersionScheme": "2",
+    "files": {
+      "assemblyVersionFile": {
+        "generate": true,
+        "generateThisAssemblyClass": true,
+        "path": "$SourceDir$\\SolutionItems\\version\\AssemblyVersion.cs"
+      },
+      "msBuildVersionFile": {
+        "generate": true,
+        "path": "$SourceDir$\\SolutionItems\\version\\version.props"
+      },
+      "jsonVersionFile": {
+        "generate": true,
+        "path": "$SourceDir$\\SolutionItems\\version\\version.json"
+      },
+      "wixVersionFile": {
+        "generate": true,
+        "path": "$SourceDir$\\SolutionItems\\version\\version.wxi"
+      },
+      "nativeHeaderVersionFile": {
+        "generate": true,
+        "path": "$SourceDir$\\SolutionItems\\version\\version.h"
+      }
+    },
+    "maestroOptions": {
+      "enabled": true,
+      "api": {
+        "baseUrl": "https://maestro01.int.mtb.me/api",
+        "endpoints": {
+          "buildNumberMinor": "buildnumberminor"
+        }
+      },
+      "applicationName": "$ProductName$",
+      "apiKeyEnvironmentVariableName": "MaestroApiKey",
+      "buildNumberMinorPadding": "3"
+    }
+  },
+  "nuGetOptions": {
+    "pack": {
+      "enabled": true,
+      "packagesNuSpecFiles": "$SourceDir$\\**\\*.nuspec",
+      "noWarn": [ "NU5105" ]
+    },
+    "push": {
+      "enabled": true,
+      "serverUrls": [
+        { "_url": "https://api.nuget.org/v3/index.json" },
+        { "_url": "https://nuget01.int.mtb.me/f/buildtools/dev/api/v2/" }
+      ]
+    }
+  },
+  "signOptions": {
+    "enabled": false,
+    "certificateSha1Thumbprint": "81DA62ADB3924456B149BD192881889A",
+    "description": "$ProductName$ v$$AssemblyInformationalVersion$$",
+    "informationUrl": "http://www.company.com/",
+    "timestampingProvider": "http://timestamp.digicert.com",
+    "files": [
+      { "_path": "Company.App.exe" },
+      { "_path": "Company.App.dll" },
+      { "_path": "*.exe" },
+      { "_path": "*.dll" },
+      { "_path": "*.msi" },
+      { "_path": "*.msp" }
+    ]
+  },
+  "hookOptions": {
+    "importBeforeDir": "$RepoRoot$\\scripts\\buildtools_hooks\\ImportBefore",
+    "importAfterDir": "$RepoRoot$\\scripts\\buildtools_hooks\\ImportAfter"
+  },
+  "compileOptions": {
+    "compiler": { "useBaseIntermediateOutputPath": false },
+    "aspNetWebProjects": [
+      {
+        "_": {
+          "projectName": "DotNet.WebApp",
+          "deployOnBuild": false,
+          "publishProfile": "FolderProfile"
+        }
+      }
+    ],
+    "excludedProjects": [
+      { "_path": "packages\\**" },
+      { "_path": "Company.App.TestProject.csproj" },
+      { "_path": "Company.App.TestProject2.csproj" }
+    ]
+  },
+  "obfuscateOptions": {
+    "enabled": false,
+    "files": [
+      { "_path": "Company.App.exe" },
+      { "_path": "Company.App.dll" }
+    ]
+  },
+  "packageOptions": {
+    "enabled": false,
+    "outputPath": "$BinDir$\\setup",
+    "projects": [
+      { "_path": "$SourceDir$\\Packaging" }
+    ]
+  },
+  "artifactoryOptions": {
+    "storageConnectionStringEnvName": "APPNAME_ARTIFACTORY_CONNECTIONSTRING",
+    "push": {
+      "enabled": false,
+      "containerName": "$ProductName$",
+      "artifacts": [
+        {
+          "_": {
+            "_path": "$BinDir$\\**\\Company.App.exe",
+            "relativePathPrefix": "$$AssemblyInformationalVersion$$"
+          }
+        },
+        {
+          "_": {
+            "_path": "$BinDir$\\**\\*.zip",
+            "relativePathPrefix": "$$AssemblyInformationalVersion$$"
+          }
+        }
+      ]
+    }
+  }
+}
