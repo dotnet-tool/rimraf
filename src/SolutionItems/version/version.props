@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.00001.0</AssemblyFileVersion>
+    <AssemblyInformationalVersion>1.0.0-preview1.0-00001-0</AssemblyInformationalVersion>
+    <LatestCommit>bedbb8c81a0e4104a0b9ba264c37be76</LatestCommit>
+    <BuiltByString> built by: manuel-TRINITY</BuiltByString>
+    <AssemblyInformationalVersionString>1.0.0-preview1.0-00001-0 built by: &lt;username&gt;-&lt;machinename&gt;. Commit Hash: bedbb8c81a0e4104a0b9ba264c37be76</AssemblyInformationalVersionString>
+  </PropertyGroup>
+</Project>

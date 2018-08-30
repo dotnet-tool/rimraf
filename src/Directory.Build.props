@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <Import Project="../Directory.Build.props" Condition=" Exists('../Directory.Build.props') " />
+
+  <Import Project="../dir.props" Condition=" Exists('../dir.props') " />
+  <Import Project="SolutionItems/version/version.props" Condition=" Exists('SolutionItems/version/version.props') " />
+
+</Project>

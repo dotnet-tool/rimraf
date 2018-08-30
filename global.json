@@ -1,0 +1,9 @@
+{
+  "tools": {
+    "dotnet": "2.2.100-preview1-009349"
+  },
+  "msbuild-sdks": {
+    "DotNet.BuildTools": "2.0.0-preview.2.0.1629.1",
+    "DotNet.BuildTools.RepoCli": "2.0.0-preview.2.0.1629.1"
+  }
+}

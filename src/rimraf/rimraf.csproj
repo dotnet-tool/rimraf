@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>$(NoWarn);NU5105</NoWarn>
+    <RootNamespace>RimRaf</RootNamespace>
+    <AssemblyName>rimraf</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\SolutionItems\version\AssemblyVersion.cs" Link="Properties\AssemblyVersion.cs" />
+    <Compile Include="..\SolutionItems\version\CommonAssemblyInfo.cs" Link="Properties\CommonAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <!-- Package properties -->
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageId>dotnet-rimraf</PackageId>
+    <PackageVersion>$(AssemblyInformationalVersion)</PackageVersion>
+    <Title>DotNet rimraf tool</Title>
+    <Authors>c1d3r</Authors>
+    <Description>A command line tool for rimraf</Description>
+    <Copyright>Copyright © 2018 c1d3r. All rights reserved.</Copyright>
+    <!--<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>-->
+    <!--<PackageLicenseUrl>https://company.com/license.html</PackageLicenseUrl>-->
+    <!--<PackageProjectUrl>https://company.com/project.html</PackageProjectUrl>-->
+    <!--<PackageIconUrl>https://company.com/icon_64x64.ico</PackageIconUrl>-->
+    <!--<PackageReleaseNotes></PackageReleaseNotes>-->
+    <PackageTags>DotNet Tool RimRaf</PackageTags>
+    <!--<PackageOutputPath>$(OutputPath)</PackageOutputPath>-->
+    <!--<IncludeSymbols>false</IncludeSymbols>-->
+    <!--<IncludeSource>false</IncludeSource>-->
+    <!--<IsTool>false</IsTool>-->
+    <!--<RepositoryUrl></RepositoryUrl>-->
+    <!--<RepositoryType></RepositoryType>-->
+    <!--<NoPackageAnalysis></NoPackageAnalysis>-->
+    <!--<MinClientVersion></MinClientVersion>-->
+    <!--<IncludeBuildOutput>true</IncludeBuildOutput>-->
+    <!--<IncludeContentInPack>true</IncludeContentInPack>-->
+    <!--<BuildOutputTargetFolder></BuildOutputTargetFolder>-->
+    <!--<ContentTargetFolders></ContentTargetFolders>-->
+    <!--<NuspecFile></NuspecFile>-->
+    <!--<NuspecBasePath></NuspecBasePath>-->
+    <!--<NuspecProperties></NuspecProperties>-->
+    <!--<DevelopmentDependency>false</DevelopmentDependency>-->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>rimraf</ToolCommandName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNet.Glob" Version="2.2.0-alpha0001" />
+    <PackageReference Include="Humanizer.Core" Version="2.4.2" />
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.5" />
+    <PackageReference Include="Polly" Version="6.1.0" />
+    <PackageReference Include="ShellProgressBar" Version="4.2.0" />
+  </ItemGroup>
+
+</Project>
