@@ -18,9 +18,9 @@
     "baseBuildDate": "2018-08-01",
     "majorVersion": "1",
     "minorVersion": "0",
-    "patchVersion": "0",
+    "patchVersion": "1",
     "preReleaseLabel": "preview",
-    "preReleaseLabelSuffix": "2.0",
+    "preReleaseLabelSuffix": "1.0",
     "preReleaseLabelSuffixPadding": "3",
     "packageVersionScheme": "2",
     "files": {

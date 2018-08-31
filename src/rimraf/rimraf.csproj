@@ -26,11 +26,11 @@
     <PackageVersion>$(AssemblyInformationalVersion)</PackageVersion>
     <Title>DotNet rimraf tool</Title>
     <Authors>c1d3r</Authors>
-    <Description>A command line tool for rimraf</Description>
+    <Description>Safe deep deletion, like 'rm -rf'</Description>
     <Copyright>Copyright © 2018 c1d3r. All rights reserved.</Copyright>
     <!--<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>-->
     <!--<PackageLicenseUrl>https://company.com/license.html</PackageLicenseUrl>-->
-    <!--<PackageProjectUrl>https://company.com/project.html</PackageProjectUrl>-->
+    <PackageProjectUrl>https://github.com/dotnet-tool/rimraf</PackageProjectUrl>
     <!--<PackageIconUrl>https://company.com/icon_64x64.ico</PackageIconUrl>-->
     <!--<PackageReleaseNotes></PackageReleaseNotes>-->
     <PackageTags>DotNet Tool RimRaf</PackageTags>
