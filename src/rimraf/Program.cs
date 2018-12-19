@@ -165,7 +165,14 @@ namespace RimRaf
 
             if (totalItems > 0)
             {
-                RetryPolicy<bool> retryPolicy = Policy.Handle<Exception>().OrResult<bool>(r => r).WaitAndRetry(25, c => TimeSpan.FromMilliseconds(250));
+                RetryPolicy<bool> retryPolicy = Policy.Handle<Exception>()
+                                                      .OrResult<bool>(r => r)
+                                                      .WaitAndRetry(25,
+                                                                    c => TimeSpan.FromMilliseconds(250),
+                                                                    (exception, timeSpan, retries, context) =>
+                                                                    {
+                                                                        //RemoveReadOnlyAttribute(context);
+                                                                    });
 
                 var itemAction = new Action<string>(path =>
                                                     {
@@ -178,32 +185,38 @@ namespace RimRaf
                                                             if (PathExtensions.IsDirectory(path))
                                                             {
                                                                 var directoryInfo = new DirectoryInfo(path);
-                                                                retryPolicy.Execute(() =>
+                                                                retryPolicy.Execute(context =>
                                                                                     {
-                                                                                        directoryInfo.Refresh();
-                                                                                        if (directoryInfo.Exists)
+                                                                                        var di = (DirectoryInfo)context["directoryInfo"];
+                                                                                        di.Refresh();
+                                                                                        if (di.Exists)
                                                                                         {
-                                                                                            directoryInfo.Delete(true);
+                                                                                            di.Attributes = FileAttributes.Normal;
+                                                                                            di.Delete(true);
                                                                                         }
 
-                                                                                        directoryInfo.Refresh();
-                                                                                        return directoryInfo.Exists;
-                                                                                    });
+                                                                                        di.Refresh();
+                                                                                        return di.Exists;
+                                                                                    },
+                                                                                    new Dictionary<string, object> { { "directoryInfo", directoryInfo } });
                                                             }
                                                             else
                                                             {
                                                                 var fileInfo = new FileInfo(path);
-                                                                retryPolicy.Execute(() =>
+                                                                retryPolicy.Execute(context =>
                                                                                     {
-                                                                                        fileInfo.Refresh();
-                                                                                        if (fileInfo.Exists)
+                                                                                        var fi = (FileInfo)context["fileInfo"];
+                                                                                        fi.Refresh();
+                                                                                        if (fi.Exists)
                                                                                         {
-                                                                                            fileInfo.Delete();
+                                                                                            fi.Attributes = FileAttributes.Normal;
+                                                                                            fi.Delete();
                                                                                         }
 
-                                                                                        fileInfo.Refresh();
-                                                                                        return fileInfo.Exists;
-                                                                                    });
+                                                                                        fi.Refresh();
+                                                                                        return fi.Exists;
+                                                                                    },
+                                                                                    new Dictionary<string, object> { { "fileInfo", fileInfo } });
                                                             }
                                                         }
                                                     });
@@ -215,16 +228,23 @@ namespace RimRaf
                                                                                }
                                                                                else
                                                                                {
-                                                                                   retryPolicy.Execute(() =>
+                                                                                   retryPolicy.Execute(context =>
                                                                                                        {
-                                                                                                           di.Refresh();
+                                                                                                           var innerDi = (DirectoryInfo)context[
+                                                                                                               "directoryInfo"];
+                                                                                                           innerDi.Refresh();
                                                                                                            if (check())
                                                                                                            {
-                                                                                                               di.Delete();
+                                                                                                               innerDi.Attributes = FileAttributes.Normal;
+                                                                                                               innerDi.Delete();
                                                                                                            }
 
-                                                                                                           di.Refresh();
+                                                                                                           innerDi.Refresh();
                                                                                                            return check();
+                                                                                                       },
+                                                                                                       new Dictionary<string, object>
+                                                                                                       {
+                                                                                                           { "directoryInfo", di }
                                                                                                        });
                                                                                }
                                                                            });
@@ -296,6 +316,39 @@ namespace RimRaf
             Console.WriteLine($"Process items:      {(completeElapsed - getItemsElapsed).Humanize(2)} ({completeElapsed - getItemsElapsed})");
 
             Console.ForegroundColor = bakForegroundColor;
+        }
+
+        private static FileAttributes RemoveAttribute(FileAttributes attributes, FileAttributes attributesToRemove)
+        {
+            return attributes & ~attributesToRemove;
+        }
+
+        private static void RemoveReadOnlyAttribute(Context context)
+        {
+            if (context.GetValueOrDefault("directoryInfo") is DirectoryInfo di)
+            {
+                FileAttributes attributes = di.Attributes;
+                if ((attributes & FileAttributes.ReadOnly) != FileAttributes.ReadOnly) return;
+
+                attributes = RemoveAttribute(attributes, FileAttributes.ReadOnly);
+                di.Attributes = attributes;
+            }
+            else if (context.GetValueOrDefault("fileInfo") is FileInfo fi)
+            {
+                FileAttributes attributes = fi.Attributes;
+                if ((attributes & FileAttributes.ReadOnly) != FileAttributes.ReadOnly) return;
+
+                attributes = RemoveAttribute(attributes, FileAttributes.ReadOnly);
+                fi.Attributes = attributes;
+            }
+        }
+    }
+
+    internal static class DictionaryExtension
+    {
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+        {
+            return dictionary.TryGetValue(key, out TValue value) ? value : default;
         }
     }
 }
