@@ -67,7 +67,7 @@ namespace RimRaf
             app.VersionOption("-v|--version", ThisAssembly.AssemblyInformationalVersion, ThisAssembly.AssemblyInformationalVersion);
             app.HelpOption("-?|-h|--help");
 
-            app.OnExecute(ExecuteAsync);
+            app.OnExecuteAsync(ExecuteAsync);
 
             try
             {
@@ -86,7 +86,7 @@ namespace RimRaf
             }
         }
 
-        private static Task<int> ExecuteAsync()
+        private static Task<int> ExecuteAsync(CancellationToken cancellationToken)
         {
             List<string> includePattern = _includesOption.Values;
             List<string> excludePattern = _excludesOption.Values;
@@ -101,7 +101,7 @@ namespace RimRaf
             matcher.AddIncludePatterns(includePattern);
             matcher.AddExcludePatterns(excludePattern);
 
-            Stopwatch stopwatch = Stopwatch.StartNew();
+            var stopwatch = Stopwatch.StartNew();
 
             ICollection<string> items = matcher.Execute(_pathArgument.Value);
             int totalItems = items.Count;
@@ -110,39 +110,37 @@ namespace RimRaf
             void ExecuteWithProgressBar(Action<string> itemAction, Action<DirectoryInfo, Func<bool>> rootPathAction)
             {
                 var options = new ProgressBarOptions { ProgressCharacter = '─', CollapseWhenFinished = false };
-                using (var progressBar = new ProgressBar(totalItems, "Start remove items...", options))
+                using var progressBar = new ProgressBar(totalItems, "Start remove items...", options);
+                var i = 0;
+
+                foreach (string path in items.OrderByDescending(x => x.Length))
                 {
-                    var i = 0;
+                    string shrinkedPath = PathFormatter.ShrinkPath(path, Console.BufferWidth - 44);
 
-                    foreach (string path in items.OrderByDescending(x => x.Length))
-                    {
-                        string shrinkedPath = PathFormatter.ShrinkPath(path, Console.BufferWidth - 44);
+                    progressBar.Message = $"Remove item {i + 1} of {totalItems}: {shrinkedPath}";
 
-                        progressBar.Message = $"Remove item {i + 1} of {totalItems}: {shrinkedPath}";
+                    itemAction(path);
 
-                        itemAction(path);
+                    progressBar.Tick($"Removed item {i + 1} of {totalItems}: {shrinkedPath}");
 
-                        progressBar.Tick($"Removed item {i + 1} of {totalItems}: {shrinkedPath}");
+                    ++i;
+                }
 
-                        ++i;
-                    }
+                var rootPathDirectoryInfo = new DirectoryInfo(matcher.RootPath);
+                var rootPathCheck = new Func<bool>(() => rootPathDirectoryInfo.Exists
+                                                      && rootPathDirectoryInfo.GetFileSystemInfos("*", SearchOption.AllDirectories).Length == 0);
 
-                    var rootPathDirectoryInfo = new DirectoryInfo(matcher.RootPath);
-                    var rootPathCheck = new Func<bool>(() => rootPathDirectoryInfo.Exists
-                                                             && rootPathDirectoryInfo.GetFileSystemInfos("*", SearchOption.AllDirectories).Length == 0);
+                if ((_skipPathOption.HasValue() || !rootPathCheck()) && (_skipPathOption.HasValue() || !_tryRunOption.HasValue())) return;
 
-                    if ((_skipPathOption.HasValue() || !rootPathCheck()) && (_skipPathOption.HasValue() || !_tryRunOption.HasValue())) return;
+                using ChildProgressBar childProgressBar = progressBar.Spawn(1, "child actions", options);
+                {
+                    string shrinkedPath = PathFormatter.ShrinkPath(matcher.RootPath, Console.BufferWidth - 44);
 
-                    using (ChildProgressBar childProgressBar = progressBar.Spawn(1, "child actions", options))
-                    {
-                        string shrinkedPath = PathFormatter.ShrinkPath(matcher.RootPath, Console.BufferWidth - 44);
+                    childProgressBar.Message = $"Remove empty root path: {shrinkedPath}";
 
-                        childProgressBar.Message = $"Remove empty root path: {shrinkedPath}";
+                    rootPathAction(rootPathDirectoryInfo, rootPathCheck);
 
-                        rootPathAction(rootPathDirectoryInfo, rootPathCheck);
-
-                        childProgressBar.Tick($"Removed empty root path: {shrinkedPath}");
-                    }
+                    childProgressBar.Tick($"Removed empty root path: {shrinkedPath}");
                 }
             }
 
@@ -155,7 +153,7 @@ namespace RimRaf
 
                 var rootPathDirectoryInfo = new DirectoryInfo(matcher.RootPath);
                 var rootPathCheck = new Func<bool>(() => rootPathDirectoryInfo.Exists
-                                                         && rootPathDirectoryInfo.GetFileSystemInfos("*", SearchOption.AllDirectories).Length == 0);
+                                                      && rootPathDirectoryInfo.GetFileSystemInfos("*", SearchOption.AllDirectories).Length == 0);
 
                 if (!_skipPathOption.HasValue() && rootPathCheck() || !_skipPathOption.HasValue() && _tryRunOption.HasValue())
                 {
@@ -266,7 +264,7 @@ namespace RimRaf
 
         private static void PrintSummary(int totalItems, TimeSpan completeElapsed, TimeSpan getItemsElapsed)
         {
-            string totalItemsMessage = string.Empty;
+            var totalItemsMessage = string.Empty;
             if (totalItems <= 0)
             {
                 totalItemsMessage = "Total:               No items found!";

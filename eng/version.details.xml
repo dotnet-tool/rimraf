@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Dependencies>
+
+  <ToolsetDependencies>
+    <Dependency Name="DotNet.Build.Sdk" Version="2.2.0-preview.1.20169.20">
+      <Uri>https://git1.mtb.me/manuel/buildtools</Uri>
+      <Sha>f6d20f82e69f032a77f02460cf05b13dcc4e2a68</Sha>
+    </Dependency>
+    <Dependency Name="DotNet.Build.Sign" Version="2.2.0-preview.1.20169.20">
+      <Uri>https://git1.mtb.me/manuel/buildtools</Uri>
+      <Sha>f6d20f82e69f032a77f02460cf05b13dcc4e2a68</Sha>
+    </Dependency>
+  </ToolsetDependencies>
+
+</Dependencies>

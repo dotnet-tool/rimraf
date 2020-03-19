@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <!-- Libs -->
+  <PropertyGroup>
+    <SignToolVersion>10.0.17763.132</SignToolVersion>
+  </PropertyGroup>
+
+  <!-- Package versions -->
+  <PropertyGroup>
+    <DotNetBuildSignPackageVersion>2.2.0-preview.1.20169.20</DotNetBuildSignPackageVersion>
+  </PropertyGroup>
+
+  <!-- Package names -->
+  <PropertyGroup>
+    <DotNetBuildSignPackage>DotNet.Build.Sign</DotNetBuildSignPackage>
+  </PropertyGroup>
+
+</Project>

@@ -1,33 +1,35 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27512.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29820.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{57BBA951-56AA-4A5B-84A5-6DF22B1A8FA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rimraf", "rimraf\rimraf.csproj", "{E6C6A978-9263-409F-8AAA-AAB8037FDD93}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A6F1FB4A-F622-4A07-A332-62D0786CB7B1}"
 	ProjectSection(SolutionItems) = preProject
-		..\config.json = ..\config.json
-		Directory.Build.props = Directory.Build.props
+		..\.gitignore = ..\.gitignore
+		..\.gitlab-ci.yml = ..\.gitlab-ci.yml
+		..\Config.props = ..\Config.props
+		..\Directory.Build.props = ..\Directory.Build.props
+		..\Directory.Build.targets = ..\Directory.Build.targets
 		..\global.json = ..\global.json
-		NuGet.Config = NuGet.Config
+		..\LICENSE = ..\LICENSE
+		..\NuGet.Config = ..\NuGet.Config
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{8E6C691F-038D-4BC7-9FBB-C363AB44093D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{616F4B7B-CC1E-486C-9982-6DE330CBC8B7}"
 	ProjectSection(SolutionItems) = preProject
-		SolutionItems\nuget\rimraf.nuspec.template = SolutionItems\nuget\rimraf.nuspec.template
+		..\eng\Signing.props = ..\eng\Signing.props
+		..\eng\version.details.xml = ..\eng\version.details.xml
+		..\eng\versions.props = ..\eng\versions.props
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "version", "version", "{0FF609CE-E456-42CC-B7C4-7999EE61C408}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{ABC6AD3F-BF5D-4BC3-A917-0096725E6B41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{95C6637F-B2D4-4B1A-8E86-D21EA748F5B3}"
 	ProjectSection(SolutionItems) = preProject
-		SolutionItems\version\AssemblyInfo.cs = SolutionItems\version\AssemblyInfo.cs
-		SolutionItems\version\AssemblyVersion.cs = SolutionItems\version\AssemblyVersion.cs
-		SolutionItems\version\CommonAssemblyInfo.cs = SolutionItems\version\CommonAssemblyInfo.cs
-		SolutionItems\version\CommonAssemblyInfo.h = SolutionItems\version\CommonAssemblyInfo.h
-		SolutionItems\version\version.h = SolutionItems\version\version.h
-		SolutionItems\version\version.json = SolutionItems\version\version.json
-		SolutionItems\version\version.props = SolutionItems\version\version.props
-		SolutionItems\version\version.wxi = SolutionItems\version\version.wxi
+		..\eng\common\templates\NuGet.Config = ..\eng\common\templates\NuGet.Config
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rimraf", "rimraf\rimraf.csproj", "{E6C6A978-9263-409F-8AAA-AAB8037FDD93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,8 +46,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8E6C691F-038D-4BC7-9FBB-C363AB44093D} = {57BBA951-56AA-4A5B-84A5-6DF22B1A8FA3}
-		{0FF609CE-E456-42CC-B7C4-7999EE61C408} = {57BBA951-56AA-4A5B-84A5-6DF22B1A8FA3}
+		{616F4B7B-CC1E-486C-9982-6DE330CBC8B7} = {A6F1FB4A-F622-4A07-A332-62D0786CB7B1}
+		{ABC6AD3F-BF5D-4BC3-A917-0096725E6B41} = {616F4B7B-CC1E-486C-9982-6DE330CBC8B7}
+		{95C6637F-B2D4-4B1A-8E86-D21EA748F5B3} = {ABC6AD3F-BF5D-4BC3-A917-0096725E6B41}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DFB6D01A-724F-4A75-B184-F0C3190ADF5F}

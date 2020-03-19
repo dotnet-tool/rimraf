@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup>
+    <!-- Common settings -->
+    <ProductName>dotnet-rimraf</ProductName>
+    <Company>c1d3r</Company>
+    <Product>Safe deep deletion, like 'rm -rf' as a .NET Core Global Tool</Product>
+
+    <!-- Common versioning settings -->
+    <VersionPrefix>1.2.0</VersionPrefix>
+    <PreReleaseVersionLabel>preview</PreReleaseVersionLabel>
+    <PreReleaseVersionIteration>1</PreReleaseVersionIteration>
+
+    <!-- Paths -->
+    <SourceDir>$(RepoRoot)/src</SourceDir>
+    <BaseOutputDir>$(RepoRoot)/_build</BaseOutputDir>
+    <BinDir>$(BaseOutputDir)/bin</BinDir>
+    <ObjDir>$(BinDir)/obj</ObjDir>
+    <PackagesOutDir>$(BinDir)/packages</PackagesOutDir>
+    <PackagesDir>$(RepoRoot)/packages</PackagesDir>
+    <BuildToolsDir>$(RepoRoot)/_buildtools</BuildToolsDir>
+    <ToolsetDir>$(BuildToolsDir)/toolset</ToolsetDir>
+    <TempDir>$(BaseOutputDir)/tmp</TempDir>
+    <DotNetBuildUserExtensionsPath>$(RepoRoot)/eng</DotNetBuildUserExtensionsPath>
+
+    <!-- Opt-in features -->
+    <UsingMaestro>true</UsingMaestro>
+    <UsingSign>true</UsingSign>
+    <UsingNuGetPush>true</UsingNuGetPush>
+
+    <!-- Maestro versioning settings -->
+    <MaestroApiBaseUrl>https://maestro1.mtb.me/api</MaestroApiBaseUrl>
+    <MaestroApiEndpointsBuildNumberMinor>buildnumberminor</MaestroApiEndpointsBuildNumberMinor>
+    <MaestroApplicationName>$(ProductName)</MaestroApplicationName>
+    <MaestroApiKeyEnvVarName>MAESTRO_APIKEY</MaestroApiKeyEnvVarName>
+
+    <!-- Signing settings -->
+    <SignServiceUrl>https://sign-1.svc.dev/sign</SignServiceUrl>
+    <SignServiceAuthenticationToken>$(SIGNING_AUTH_TOKEN)</SignServiceAuthenticationToken>
+    <SignServiceVersion>2020-03-12</SignServiceVersion>
+    <SignCertificateName>Mtb200</SignCertificateName>
+    <SignFileDigestAlgorithm>Dual</SignFileDigestAlgorithm>
+    <SignDescription>{{Product}} - v{{DisplayVersion}}</SignDescription>
+    <SignInformationUrl>ww3.dev</SignInformationUrl>
+    <SignTimestampServerUrl>http://timestamp.digicert.com</SignTimestampServerUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- NuGet feeds where to push -->
+    <NuGetPushUrls Include="https://api.nuget.org/v3/index.json" />
+    <!--<NuGetPushUrls Include="https://nuget1.mtb.me/f/buildtools-core/api/v2/" />-->
+  </ItemGroup>
+
+</Project>

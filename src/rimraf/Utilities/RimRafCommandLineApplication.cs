@@ -8,9 +8,9 @@ namespace RimRaf.Utilities
         {
             string shortVersion = ShortVersionGetter?.Invoke();
 
-            if (string.IsNullOrEmpty(FullName) && string.IsNullOrEmpty(shortVersion)) return string.Empty;
+            if (string.IsNullOrEmpty(FullName)  && string.IsNullOrEmpty(shortVersion)) return string.Empty;
             if (!string.IsNullOrEmpty(FullName) && string.IsNullOrEmpty(shortVersion)) return FullName;
-            if (string.IsNullOrEmpty(FullName) && !string.IsNullOrEmpty(shortVersion)) return shortVersion;
+            if (string.IsNullOrEmpty(FullName)  && !string.IsNullOrEmpty(shortVersion)) return shortVersion;
 
             return $"{FullName} ({shortVersion})";
         }
