@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup>
+    <!-- Common settings -->
+    <!-- When no product name is specified, use the parent directory name from a temporary file in RepoRoot -->
+    <ProductName>$([System.IO.Directory]::GetParent('$(RepoRoot)/_').Name)</ProductName>
+    <Company>Your-Company</Company>
+    <Product>$(ProductName)</Product>
+    <Authors>$(Company)</Authors>
+    <Owners>$(Authors)</Owners>
+    <Copyright>Copyright © $([System.DateTime]::Now.ToString('yyyy')) $(Company). All rights reserved.</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <NoWarn>$(NoWarn);NU5101;NU5105:NU5110;NU5111</NoWarn>
+
+    <!-- Common versioning settings -->
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <PreReleaseVersionLabel>preview</PreReleaseVersionLabel>
+    <PreReleaseVersionIteration>1</PreReleaseVersionIteration>
+    <SemanticVersioningV1>false</SemanticVersioningV1>
+
+    <!-- Paths -->
+    <SourceDir>$(RepoRoot)/src</SourceDir>
+    <BaseOutputDir>$(RepoRoot)/_build</BaseOutputDir>
+    <BinDir>$(BaseOutputDir)/bin</BinDir>
+    <ObjDir>$(BinDir)/obj</ObjDir>
+    <PackagesOutDir>$(BinDir)/packages</PackagesOutDir>
+    <PackagesDir>$(RepoRoot)/packages</PackagesDir>
+    <BuildToolsDir>$(RepoRoot)/_buildtools</BuildToolsDir>
+    <ToolsetDir>$(BuildToolsDir)/toolset</ToolsetDir>
+    <TempDir>$(BaseOutputDir)/tmp</TempDir>
+    <DotNetBuildUserExtensionsPath>$(RepoRoot)/eng</DotNetBuildUserExtensionsPath>
+
+    <!-- Opt-out features -->
+    <UsingCSharpVersioning>true</UsingCSharpVersioning>
+    <UsingNativeVersioning>true</UsingNativeVersioning>
+    <UsingWebAppPublish>true</UsingWebAppPublish>
+    <UsingXUnit>true</UsingXUnit>
+    <UsingNuGetPack>true</UsingNuGetPack>
+    <UsingArchivePack>true</UsingArchivePack>
+
+    <!-- Opt-in features -->
+    <UsingMaestro>false</UsingMaestro>
+    <UsingRimRafAfterCleanTarget>false</UsingRimRafAfterCleanTarget>
+    <UsingNUnit>false</UsingNUnit>
+    <UsingReportUnit>false</UsingReportUnit>
+    <UsingObfuscation>false</UsingObfuscation>
+    <UsingSign>false</UsingSign>
+    <UsingNuGetPush>false</UsingNuGetPush>
+    <UsingPackaging>false</UsingPackaging>
+    <UsingSmartStoragePush>false</UsingSmartStoragePush>
+    <NuGetInteractive>false</NuGetInteractive>
+
+    <!-- Maestro versioning settings -->
+    <MaestroApiBaseUrl>https://maestro.company.com/api</MaestroApiBaseUrl>
+    <MaestroApiEndpointsBuildNumberMinor>buildnumberminor</MaestroApiEndpointsBuildNumberMinor>
+    <MaestroApplicationName>$(ProductName)</MaestroApplicationName>
+    <MaestroApiKeyEnvVarName>MAESTRO_APIKEY</MaestroApiKeyEnvVarName>
+
+    <!-- Signing settings -->
+    <SignServiceUrl>https://sign.company.com/sign</SignServiceUrl>
+    <SignServiceAuthenticationToken>$(SIGNING_AUTH_TOKEN)</SignServiceAuthenticationToken>
+    <SignServiceVersion>2020-03-12</SignServiceVersion>
+    <SignCertificateName>Your-Friendly-Certificate-Name</SignCertificateName>
+    <SignFileDigestAlgorithm>Dual</SignFileDigestAlgorithm>
+    <SignDescription>{{Product}} - v{{DisplayVersion}}</SignDescription>
+    <SignInformationUrl>http://www.company.com</SignInformationUrl>
+    <SignTimestampServerUrl>http://timestamp.digicert.com</SignTimestampServerUrl>
+
+    <!-- SmartStorage settings -->
+    <SmartStorageContainerName>$(ProductName)</SmartStorageContainerName>
+    <SmartStorageConnectionStringEnvVarName>SMARTSTORAGE_CONNECTIONSTRING</SmartStorageConnectionStringEnvVarName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Projects to exclude -->
+    <CompileExcludedProjects Include="Company.App" />
+
+    <!-- Projectnames to obfuscate, optionally opt-in when empty it obfuscates all projects -->
+    <ObfuscateProjectNames Include="Company.App" />
+
+    <!-- NuGet feeds where to push -->
+    <NuGetPushUrls Include="https://api.nuget.org/v3/index.json" />
+
+    <!-- Packaging projects -->
+    <PackagingProjects Include="$(SourceDir)/packaging/**/*.csproj" />
+
+    <!--
+      SmartStorage files to push
+        Path:               Path to file to push
+        RelativePathPrefix: Relative path prefix for resulting blob, results in '{{RelativePathPrefix}}/{{Path}}'
+    -->
+    <SmartStoragePushFiles Include="_">
+      <Path>{{BinDir}}/Company.App/$(Configuration)/netcoreapp3.1/Company.App.exe</Path>
+      <RelativePathPrefix>{{AssemblyInformationalVersion}}</RelativePathPrefix>
+    </SmartStoragePushFiles>
+    <SmartStoragePushFiles Include="_">
+      <Path>{{PackagesOutDir}}/*.nupkg</Path>
+      <RelativePathPrefix>{{AssemblyInformationalVersion}}</RelativePathPrefix>
+    </SmartStoragePushFiles>
+  </ItemGroup>
+
+</Project>

@@ -18,8 +18,7 @@ namespace RimRaf.Utilities
 
         private readonly ICollection<string> _includePatterns;
 
-        public Matcher()
-            : this(StringComparison.OrdinalIgnoreCase) { }
+        public Matcher() : this(StringComparison.OrdinalIgnoreCase) { }
 
         public Matcher(StringComparison stringComparison)
         {

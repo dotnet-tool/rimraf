@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <ItemGroup>
+    <CertificateSignInfo Include="$(SignCertificateName)"
+                         FileDigestAlgorithm="$(SignFileDigestAlgorithm)"
+                         SignDescription="$(SignDescription)"
+                         SignInformationUrl="$(SignInformationUrl)"
+                         TimestampServerUrl="$(SignTimestampServerUrl)" />
+
+    <FileSignInfo Include="Company.App.nupkg"
+                  CertificateName="$(SignCertificateName)"
+                  FileDigestAlgorithm="$(SignFileDigestAlgorithm)"
+                  SignDescription="$(SignDescription)"
+                  SignInformationUrl="$(SignInformationUrl)"
+                  TimestampServerUrl="$(SignTimestampServerUrl)" />
+    <FileSignInfo Include="Company.App.exe" CertificateName="$(SignCertificateName)" />
+    <FileSignInfo Include="Company.App.dll" CertificateName="$(SignCertificateName)" TimestampServerUrl="None" />
+    <FileSignInfo Include="ThirdParty.exe" CertificateName="3PartyDual" FileDigestAlgorithm="Dual" />
+    <FileSignInfo Include="ThirdParty.dll" CertificateName="3PartySha256" FileDigestAlgorithm="SHA256" />
+    <FileSignInfo Include="Company.App.zip" CertificateName="None" />
+
+    <FileExtensionSignInfo Include=".nupkg;.snupkg"
+                           CertificateName="$(SignCertificateName)"
+                           FileDigestAlgorithm="SHA256"
+                           SignDescription="None"
+                           SignInformationUrl="None"
+                           TimestampServerUrl="$(SignTimestampServerUrl)" />
+  </ItemGroup>
+
+</Project>

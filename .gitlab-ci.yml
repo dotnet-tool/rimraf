@@ -1,0 +1,55 @@
+variables:
+  GIT_STRATEGY: clone
+  GIT_CHECKOUT: 'true'
+  GIT_CLEAN_FLAGS: -ffdx
+
+stages:
+  - build
+  - cleanup
+  - build-prerelease
+  - cleanup-prerelease
+
+build_job:
+  stage: build
+  tags:
+    - windows
+  script:
+    - eng/common/build.ps1 -restore -build -test -sign -pack -publish -publishArtifacts -configuration release -ci -officialbuild
+  artifacts:
+    expire_in: 1 week
+    when: always
+    paths:
+      - _build/log/release/
+      - _build/results/
+      - _build/testresults/
+
+cleanup_job:
+  stage: cleanup
+  tags:
+    - windows
+  script:
+    - eng/common/build.ps1 -clean -force
+  when: manual
+
+build-prerelease_job:
+  stage: build-prerelease
+  tags:
+    - windows
+  script:
+    - eng/common/build.ps1 -restore -build -test -sign -pack -publish -publishArtifacts -configuration release -ci -officialbuild -dotNetFinalVersionKind prerelease
+  artifacts:
+    expire_in: 1 week
+    when: always
+    paths:
+      - _build/log/release/
+      - _build/results/
+      - _build/testresults/
+  when: manual
+
+cleanup-prerelease_job:
+  stage: cleanup-prerelease
+  tags:
+    - windows
+  script:
+    - eng/common/build.ps1 -clean -force
+  when: manual

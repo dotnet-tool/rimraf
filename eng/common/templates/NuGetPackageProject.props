@@ -1,18 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
-    <RollForward>latestMajor</RollForward>
-    <RootNamespace>RimRaf</RootNamespace>
-    <OutputType>Exe</OutputType>
-  </PropertyGroup>
+<Project Sdk="Microsoft.NET.Sdk">
 
   <!--
     Common properties for NuGet packages
   -->
   <PropertyGroup>
-    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
-    <AssemblyTitle>DotNet Tool RimRaf</AssemblyTitle>
+    <!--<AssemblyName>$(MSBuildProjectName)</AssemblyName>-->
+    <!--<AssemblyTitle>$(MSBuildProjectName)</AssemblyTitle>-->
 
     <!--<Company>$(Company)</Company>-->
     <!--<Product>$(Product)</Product>-->
@@ -21,20 +14,20 @@
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 
-    <PackageId>dotnet-rimraf</PackageId>
+    <PackageId>$(AssemblyName)</PackageId>
     <!--<PackageVersion>$(Version)</PackageVersion>-->
-    <Authors>$(Authors)</Authors>
-    <Owners>$(Owners)</Owners>
+    <!--<Authors>$(Authors)</Authors>-->
+    <!--<Owners>$(Owners)</Owners>-->
     <Title>$(AssemblyTitle)</Title>
     <Description>$(Product)</Description>
     <!--<Copyright>Copyright © $([System.DateTime]::Now.ToString('yyyy')) $(Company). All rights reserved.</Copyright>-->
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <!--<PackageLicenseFile>LICENSE</PackageLicenseFile>-->
-    <PackageProjectUrl>https://github.com/dotnet-tool/$(Product)</PackageProjectUrl>
+    <PackageProjectUrl>https://www.company.com/$(Product)</PackageProjectUrl>
     <!--<PackageIcon>https://www.company.com/icon-64x64.ico</PackageIcon>-->
-    <PackageIconUrl></PackageIconUrl>
-    <PackageTags>DotNet Tool RimRaf Safe deep deletion like rm -rf .NET Core Global Tool</PackageTags>
+    <!--<PackageIconUrl></PackageIconUrl>-->
+    <PackageTags></PackageTags>
     <!--<PackageReleaseNotes></PackageReleaseNotes>-->
     <!--<RepositoryUrl>file://$(RepoRoot)</RepositoryUrl>-->
     <!--<RepositoryType>git</RepositoryType>-->
@@ -47,7 +40,7 @@
     <!--<PackageOutputPath>$(OutputPath)</PackageOutputPath>-->
     <!--<IncludeSymbols>false</IncludeSymbols>-->
     <!--<IncludeSource>false</IncludeSource>-->
-    <IsTool>true</IsTool>
+    <!--<IsTool>true</IsTool>-->
     <!--<NoPackageAnalysis>true</NoPackageAnalysis>-->
     <!--<MinClientVersion></MinClientVersion>-->
     <!--<IncludeBuildOutput>true</IncludeBuildOutput>-->
@@ -58,20 +51,12 @@
     <!--<NuspecBasePath></NuspecBasePath>-->
     <!--<NuspecProperties></NuspecProperties>-->
 
-    <PackAsTool>true</PackAsTool>
-    <ToolCommandName>$(AssemblyName)</ToolCommandName>
+    <!--<PackAsTool>true</PackAsTool>-->
+    <!--<ToolCommandName>$(AssemblyName)</ToolCommandName>-->
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(PackageLicenseFile)' != '' ">
     <None Include="../../LICENSE" Pack="true" PackagePath="$(PackageLicenseFile)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="DotNet.Glob" Version="3.1.0-alpha0009" />
-    <PackageReference Include="Humanizer.Core" Version="2.7.9" />
-    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.5.1" />
-    <PackageReference Include="Polly" Version="7.2.0" />
-    <PackageReference Include="ShellProgressBar" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

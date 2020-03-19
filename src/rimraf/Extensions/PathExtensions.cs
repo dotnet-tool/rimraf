@@ -82,9 +82,9 @@ namespace RimRaf.Extensions
             {
                 current = path[i];
                 if (PathInternal.IsDirectorySeparator(current)
-                    && (current != Path.DirectorySeparatorChar
-                        // Check for sequential separators past the first position (we need to keep initial two for UNC/extended)
-                        || i > 0 && i + 1 < path.Length && PathInternal.IsDirectorySeparator(path[i + 1])))
+                 && (current != Path.DirectorySeparatorChar
+                     // Check for sequential separators past the first position (we need to keep initial two for UNC/extended)
+                  || i > 0 && i + 1 < path.Length && PathInternal.IsDirectorySeparator(path[i + 1])))
                 {
                     normalized = false;
                     break;
@@ -167,9 +167,9 @@ namespace RimRaf.Extensions
                     // Skip this character and the next two if it's referring to the parent directory,
                     // e.g. "parent/child/../grandchild" => "parent/grandchild"
                     if (i + 2 < path.Length
-                        && (i + 3 == path.Length || PathInternal.IsDirectorySeparator(path[i + 3]))
-                        && path[i + 1] == '.'
-                        && path[i + 2] == '.')
+                     && (i + 3 == path.Length || PathInternal.IsDirectorySeparator(path[i + 3]))
+                     && path[i + 1] == '.'
+                     && path[i + 2] == '.')
                     {
                         // Unwind back to the last slash (and if there isn't one, clear out everything).
                         int s;
@@ -206,11 +206,9 @@ namespace RimRaf.Extensions
             {
                 return sb.ToString();
             }
-            else
-            {
-                // We haven't changed the source path, return the original
-                return path;
-            }
+
+            // We haven't changed the source path, return the original
+            return path;
         }
 
         private static class PathInternal
