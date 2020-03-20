@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="../../releasenotes.props" />
+
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
     <RollForward>latestMajor</RollForward>
@@ -31,7 +33,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <!--<PackageLicenseFile>LICENSE</PackageLicenseFile>-->
-    <PackageProjectUrl>https://github.com/dotnet-tool/$(Product)</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/dotnet-tool/rimraf</PackageProjectUrl>
     <!--<PackageIcon>https://www.company.com/icon-64x64.ico</PackageIcon>-->
     <PackageIconUrl></PackageIconUrl>
     <PackageTags>DotNet Tool RimRaf Safe deep deletion like rm -rf .NET Core Global Tool</PackageTags>
@@ -69,7 +71,7 @@
   <ItemGroup>
     <PackageReference Include="DotNet.Glob" Version="3.1.0-alpha0009" />
     <PackageReference Include="Humanizer.Core" Version="2.7.9" />
-    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.5.1" />
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.6.0" />
     <PackageReference Include="Polly" Version="7.2.0" />
     <PackageReference Include="ShellProgressBar" Version="4.3.0" />
   </ItemGroup>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -11,7 +10,6 @@ using Humanizer;
 using McMaster.Extensions.CommandLineUtils;
 
 using Polly;
-using Polly.Retry;
 
 using RimRaf.Extensions;
 using RimRaf.Utilities;
@@ -88,8 +86,8 @@ namespace RimRaf
 
         private static Task<int> ExecuteAsync(CancellationToken cancellationToken)
         {
-            List<string> includePattern = _includesOption.Values;
-            List<string> excludePattern = _excludesOption.Values;
+            var includePattern = _includesOption.Values;
+            var excludePattern = _excludesOption.Values;
 
             // When no include pattern is specified, we decide to include all recursive ('**')
             if (!includePattern.Any())
@@ -103,7 +101,7 @@ namespace RimRaf
 
             var stopwatch = Stopwatch.StartNew();
 
-            ICollection<string> items = matcher.Execute(_pathArgument.Value);
+            var items = matcher.Execute(_pathArgument.Value);
             int totalItems = items.Count;
             TimeSpan getItemsElapsed = stopwatch.Elapsed;
 
@@ -163,7 +161,7 @@ namespace RimRaf
 
             if (totalItems > 0)
             {
-                RetryPolicy<bool> retryPolicy = Policy.Handle<Exception>().OrResult<bool>(r => r).WaitAndRetry(25, c => TimeSpan.FromMilliseconds(250));
+                var retryPolicy = Policy.Handle<Exception>().OrResult<bool>(r => r).WaitAndRetry(25, c => TimeSpan.FromMilliseconds(250));
 
                 var itemAction = new Action<string>(path =>
                                                     {

@@ -3,7 +3,6 @@
 
   <ItemGroup>
     <FileSignInfo Include="rimraf.dll" CertificateName="$(SignCertificateName)" />
-    <FileSignInfo Include="rimraf.exe" CertificateName="$(SignCertificateName)" />
 
     <FileExtensionSignInfo Remove="@(FileExtensionSignInfo)" />
     <FileExtensionSignInfo Include=".nupkg;.snupkg" CertificateName="$(SignCertificateName)" />
