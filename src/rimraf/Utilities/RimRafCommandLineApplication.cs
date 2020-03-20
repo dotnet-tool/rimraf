@@ -4,6 +4,11 @@ namespace RimRaf.Utilities
 {
     internal class RimRafCommandLineApplication : CommandLineApplication
     {
+        public RimRafCommandLineApplication()
+        {
+            HelpTextGenerator = new RimRafHelpTextGenerator();
+        }
+
         public override string GetFullNameAndVersion()
         {
             string shortVersion = ShortVersionGetter?.Invoke();

@@ -1,0 +1,21 @@
+﻿<Project>
+  <PropertyGroup>
+    <PackageReleaseNotes Condition="'$(VersionPrefix)' == '1.2.1'">
+      - Fix some NuGet package link issues
+      - [Buildsystem] CI improvements
+      - Update all dependencies
+      - Support for .NET Core 2.1 (LTS) and 3.1 (LTS)
+      - Use .NET Core roll-forward policy
+    </PackageReleaseNotes>
+    <PackageReleaseNotes Condition="'$(VersionPrefix)' == '1.2.0'">
+      - Update all dependencies
+      - Support for .NET Core 2.1 (LTS) and 3.1 (LTS)
+      - Use .NET Core roll-forward policy
+    </PackageReleaseNotes>
+    <PackageReleaseNotes>
+      Changes in $(VersionPrefix): $(PackageReleaseNotes)
+      - For more details on changes to $(ProductName) itself, see https://github.com/dotnet-tool/rimraf/releases/tag/v$(VersionPrefix)
+    </PackageReleaseNotes>
+    <PackageReleaseNotes>$(PackageReleaseNotes.Trim())</PackageReleaseNotes>
+  </PropertyGroup>
+</Project>
