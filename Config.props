@@ -8,7 +8,7 @@
     <Product>Safe deep deletion, like 'rm -rf' as a .NET Core Global Tool</Product>
 
     <!-- Common versioning settings -->
-    <VersionPrefix>1.2.2</VersionPrefix>
+    <VersionPrefix>1.2.3</VersionPrefix>
     <PreReleaseVersionLabel>preview</PreReleaseVersionLabel>
     <PreReleaseVersionIteration>1</PreReleaseVersionIteration>
 
