@@ -1,0 +1,50 @@
+trigger:
+  - master
+  - azure-pipelines
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  - name: _BuildConfiguration
+    value: 'Release'
+
+  - ? ${{ if and(ne(variables['System.TeamProject'], 'public'), notin(variables['Build.Reason'], 'PullRequest')) }}
+    : - group: DotNet-MeastroApi-Access
+      - group: DotNet-SignApi-Access
+
+stages:
+  - stage: build
+    displayName: 'Build'
+    jobs:
+      - job: Windows_NT
+        displayName: 'Windows_NT Build_Release'
+        timeoutInMinutes: 90
+        workspace:
+          clean: all
+        steps:
+          - checkout: self
+            clean: true
+          - task: UseDotNet@2
+            displayName: 'Install .NET Core SDK 3.1.200'
+            inputs:
+              packageType: 'sdk'
+              version: '3.1.200'
+          - powershell: eng/common/build.ps1
+              -restore
+              -build
+              -test
+              -pack
+              -publish
+              -configuration $(_BuildConfiguration)
+              -ci
+              -officialbuild
+            displayName: 'Windows Build / Publish'
+            env:
+              MAESTRO_APIKEY: $(MAESTRO_APIKEY)
+              SIGNING_AUTH_TOKEN: $(SIGNING_AUTH_TOKEN)
+          - publish: '_build/log/$(_BuildConfiguration)'
+            artifact: 'Logs_Build_$(Agent.OS)_$(_BuildConfiguration)'
+            displayName: 'Publish Logs'
+            continueOnError: true
+            condition: always()

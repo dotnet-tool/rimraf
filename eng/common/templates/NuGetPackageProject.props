@@ -24,7 +24,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <!--<PackageLicenseFile>LICENSE</PackageLicenseFile>-->
-    <PackageProjectUrl>https://www.company.com/$(Product)</PackageProjectUrl>
+    <PackageProjectUrl>https://www.company.com/your-product</PackageProjectUrl>
     <!--<PackageIcon>https://www.company.com/icon-64x64.ico</PackageIcon>-->
     <!--<PackageIconUrl></PackageIconUrl>-->
     <PackageTags></PackageTags>
