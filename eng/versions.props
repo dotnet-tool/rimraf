@@ -8,7 +8,7 @@
 
   <!-- Package versions -->
   <PropertyGroup>
-    <DotNetBuildSignPackageVersion>2.2.0-preview.1.20170.9</DotNetBuildSignPackageVersion>
+    <DotNetBuildSignPackageVersion>2.2.0</DotNetBuildSignPackageVersion>
   </PropertyGroup>
 
   <!-- Package names -->

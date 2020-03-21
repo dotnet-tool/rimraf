@@ -2,13 +2,13 @@
 <Dependencies>
 
   <ToolsetDependencies>
-    <Dependency Name="DotNet.Build.Sdk" Version="2.2.0-preview.1.20170.9">
+    <Dependency Name="DotNet.Build.Sdk" Version="2.2.0">
       <Uri>https://git1.mtb.me/manuel/buildtools</Uri>
-      <Sha>8f48123d51422b4c66e6af03316d62926ecf2fba</Sha>
+      <Sha>67f309e4d9698616c65db265e0563913e0f14d18</Sha>
     </Dependency>
-    <Dependency Name="DotNet.Build.Sign" Version="2.2.0-preview.1.20170.9">
+    <Dependency Name="DotNet.Build.Sign" Version="2.2.0">
       <Uri>https://git1.mtb.me/manuel/buildtools</Uri>
-      <Sha>8f48123d51422b4c66e6af03316d62926ecf2fba</Sha>
+      <Sha>67f309e4d9698616c65db265e0563913e0f14d18</Sha>
     </Dependency>
   </ToolsetDependencies>
 

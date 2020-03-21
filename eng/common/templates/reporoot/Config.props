@@ -63,7 +63,7 @@
     <SignServiceVersion>2020-03-12</SignServiceVersion>
     <SignCertificateName>Your-Friendly-Certificate-Name</SignCertificateName>
     <SignFileDigestAlgorithm>Dual</SignFileDigestAlgorithm>
-    <SignDescription>{{Product}} - v{{DisplayVersion}}</SignDescription>
+    <SignDescription>{{ProductName}} - v{{DisplayVersion}}</SignDescription>
     <SignInformationUrl>http://www.company.com</SignInformationUrl>
     <SignTimestampServerUrl>http://timestamp.digicert.com</SignTimestampServerUrl>
 
