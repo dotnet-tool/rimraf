@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
-    <RollForward>latestMajor</RollForward>
+    <RollForward>Major</RollForward>
     <RootNamespace>RimRaf</RootNamespace>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
