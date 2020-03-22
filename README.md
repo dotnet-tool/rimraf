@@ -6,7 +6,7 @@ _Safe deep deletion, like `rm -rf` as a **.NET Tool**_
 
 Rimraf is a safe deep deletion utility for .NET, much like `rm -rf`, just safer.
 
-## Build & Test Status
+## Build Status
 
 Azure DevOps
 
