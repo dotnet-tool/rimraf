@@ -1,6 +1,13 @@
 trigger:
-  - master
-  - azure-pipelines
+  batch: true
+  branches:
+    include:
+      - master
+
+pr:
+  branches:
+    include:
+      - master
 
 pool:
   vmImage: 'windows-latest'
