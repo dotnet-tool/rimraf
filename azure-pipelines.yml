@@ -1,13 +1,17 @@
 trigger:
-  - master
-  - azure-pipelines
+  batch: true
+  branches:
+    include:
+      - master
 
-pool:
-  vmImage: 'windows-latest'
+pr:
+  branches:
+    include:
+      - master
 
 variables:
-  - name: _BuildConfiguration
-    value: 'Release'
+  - name: _RunAsPublic
+    value: true
 
   - ? ${{ if and(ne(variables['System.TeamProject'], 'public'), notin(variables['Build.Reason'], 'PullRequest')) }}
     : - group: DotNet-MeastroApi-Access
@@ -18,33 +22,42 @@ stages:
     displayName: 'Build'
     jobs:
       - job: Windows_NT
-        displayName: 'Windows_NT Build_Release'
+        pool:
+          vmImage: 'windows-latest'
+        displayName: 'Windows_NT'
         timeoutInMinutes: 90
         workspace:
           clean: all
+        strategy:
+          matrix:
+            Build_Release:
+              _BuildConfig: Release
+            ${{ if eq(variables._RunAsPublic, true) }}:
+              Build_Debug:
+                _BuildConfig: Debug
         steps:
           - checkout: self
             clean: true
           - task: UseDotNet@2
-            displayName: 'Install .NET Core SDK 3.1.200'
+            displayName: 'Install .NET Core SDK 3.1.x'
             inputs:
               packageType: 'sdk'
-              version: '3.1.200'
+              version: '3.1.x'
           - powershell: eng/common/build.ps1
               -restore
               -build
               -test
               -pack
               -publish
-              -configuration $(_BuildConfiguration)
+              -configuration $(_BuildConfig)
               -ci
               -officialbuild
             displayName: 'Windows Build / Publish'
             env:
               MAESTRO_APIKEY: $(MAESTRO_APIKEY)
               SIGNING_AUTH_TOKEN: $(SIGNING_AUTH_TOKEN)
-          - publish: '_build/log/$(_BuildConfiguration)'
-            artifact: 'Logs_Build_$(Agent.OS)_$(_BuildConfiguration)'
+          - publish: '_build/log/$(_BuildConfig)'
+            artifact: 'Logs_Build_$(Agent.OS)_$(_BuildConfig)'
             displayName: 'Publish Logs'
             continueOnError: true
             condition: always()
