@@ -24,7 +24,7 @@ stages:
       - job: Windows_NT
         pool:
           vmImage: 'windows-latest'
-        displayName: 'Windows_NT Build_Release'
+        displayName: 'Windows_NT'
         timeoutInMinutes: 90
         workspace:
           clean: all
