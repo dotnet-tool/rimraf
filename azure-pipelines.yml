@@ -32,17 +32,17 @@ stages:
           matrix:
             Build_Release:
               _BuildConfig: Release
-            ${{ if eq(variables._RunAsPublic, True) }}:
+            ${{ if eq(variables._RunAsPublic, true) }}:
               Build_Debug:
                 _BuildConfig: Debug
         steps:
           - checkout: self
             clean: true
           - task: UseDotNet@2
-            displayName: 'Install .NET Core SDK 3.1.201'
+            displayName: 'Install .NET Core SDK 3.1.x'
             inputs:
               packageType: 'sdk'
-              version: '3.1.201'
+              version: '3.1.x'
           - powershell: eng/common/build.ps1
               -restore
               -build
